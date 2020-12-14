@@ -12,6 +12,8 @@ class SearchRecipe extends StatelessWidget {
             _searchInput(),
             _categoryRow(),
             _filters(),
+            Container(height: 10),
+            _searchButton(),
           ],
         ),
       ),
@@ -64,6 +66,18 @@ Widget _filters() {
         FilterRecipes(chipName: 'Pizza'),
         FilterRecipes(chipName: 'Fish'),
       ],
+    ),
+  );
+}
+
+Widget _searchButton() {
+  return Container(
+    width: 350,
+    child: RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      onPressed: () {},
+      color: Color(0xFF6C804B),
+      child: Text('Search', style: TextStyle(color: Colors.white)),
     ),
   );
 }
