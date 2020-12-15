@@ -14,6 +14,7 @@ class SearchRecipe extends StatelessWidget {
             _filters(),
             Container(height: 10),
             _searchButton(),
+            _recipeTitleRow(),
           ],
         ),
       ),
@@ -81,3 +82,16 @@ Widget _searchButton() {
     ),
   );
 }
+
+Widget _recipeTitleRow() {
+  return Row(
+    children: [
+      Padding(
+          padding: EdgeInsets.only(left: 20, top: 20),
+          child: Text('357 recipes found',
+              style: TextStyle(fontWeight: FontWeight.bold))),
+    ],
+  );
+}
+
+
