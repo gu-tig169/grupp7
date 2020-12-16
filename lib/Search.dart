@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
+//Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer??
 
 class Search extends StatelessWidget {
   @override
