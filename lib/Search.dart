@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'SearchResult.dart';
+import 'Favorites.dart';
+import 'homeScreen.dart';
 
 //Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 
@@ -6,6 +9,34 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+                icon: Icon(Icons.home, color: Color(0xff6C804B)),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
+            IconButton(
+                icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Favorites()));
+                }),
+            IconButton(
+                icon: Icon(Icons.search, color: Color(0xff6C804B)),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Search()));
+                }),
+            IconButton(
+                icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
+                onPressed: () {})
+          ],
+        ),
+      ),
       body: Center(
         child: Column(
           children: [
@@ -14,7 +45,7 @@ class Search extends StatelessWidget {
             _categoryRow(),
             _filters(),
             Container(height: 10),
-            _searchButton(),
+            _searchButton(context),
             //_recipeTitleRow(),
           ],
         ),
@@ -72,19 +103,19 @@ Widget _filters() {
   );
 }
 
-Widget _searchButton() {
+Widget _searchButton(BuildContext context) {
   return Container(
     width: 350,
     child: RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       onPressed: () {
-        //Lägg in så när man klickar på denna kommer man till den sökta receptvyn
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResult()));
       },
       color: Color(0xFF6C804B),
       child: Text('Search', style: TextStyle(color: Colors.white)),
     ),
   );
-} 
+}
 
 /*Widget _recipeTitleRow() {
   return Row(
@@ -102,14 +133,14 @@ class Filter extends StatefulWidget {
 
   Filter({Key key, this.chipName}) : super(key: key);
 
-  @override 
+  @override
   _FilterState createState() => _FilterState();
 }
 
 class _FilterState extends State<Filter> {
   var _isSelected = false;
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return FilterChip(
       label: Text(widget.chipName),
@@ -121,8 +152,6 @@ class _FilterState extends State<Filter> {
       },
       backgroundColor: Color(0xFFE8E0A1),
       selectedColor: Color(0xFFE8E0A1),
-      );
+    );
   }
 } //Jag antar att dessa två klasser kommer att slås ihop eller om jag gör två filer men låter dem ligga i samma så länge
-
-
