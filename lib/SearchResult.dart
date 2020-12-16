@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//Vy för resultaten av det användaren sökt på
+
 class SearchedResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
