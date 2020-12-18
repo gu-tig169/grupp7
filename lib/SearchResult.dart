@@ -8,6 +8,14 @@ class SearchResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Color(0xFF6C804B)),
+        elevation: 0,
+        title: Text('Recipes Found',
+            style: TextStyle(color: Color(0xFF6C804B), fontSize: 20)),
+        centerTitle: true,
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,13 +43,6 @@ class SearchResult extends StatelessWidget {
                 onPressed: () {})
           ],
         ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Color(0xFF6C804B)),
-        elevation: 0,
-        title: Text('Recipes Found', style: TextStyle(color: Color(0xFF6C804B), fontSize: 20)),
-        centerTitle: true,
       ),
       body: _list(),
     );
@@ -94,22 +95,25 @@ class SearchResult extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(text, style: TextStyle(fontSize: 18, color: Colors.white)),
+                              Text(text,
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white)),
                             ],
                           ),
-                          Row(
-                            children: [
+                          Row(children: [
                             Icon(Icons.star, size: 15, color: Colors.yellow),
                             Icon(Icons.star, size: 15, color: Colors.yellow),
                             Icon(Icons.star, size: 15, color: Colors.yellow),
-                            Icon(Icons.star_half, size: 15, color: Colors.yellow),
-                            Icon(Icons.star_outline, size: 15, color: Colors.yellow),
+                            Icon(Icons.star_half,
+                                size: 15, color: Colors.yellow),
+                            Icon(Icons.star_outline,
+                                size: 15, color: Colors.yellow),
                           ])
                         ],
                       ),
                     ),
                     Column(
-                        children: [ 
+                      children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -119,7 +123,7 @@ class SearchResult extends StatelessWidget {
                                 alignment: Alignment.topRight),
                           ],
                         )
-                        ], 
+                      ],
                     ),
                   ],
                 )),
