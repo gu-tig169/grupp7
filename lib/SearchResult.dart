@@ -77,7 +77,7 @@ class SearchResult extends StatelessWidget {
                 shadowColor: Color(0x802196F3),
                 child: Row(
                   children: [
-                    Container(
+                    Container( //bilden
                       width: 120,
                       height: 120,
                       child: ClipRRect(
@@ -89,7 +89,7 @@ class SearchResult extends StatelessWidget {
                                 'https://www.landleyskok.se/wp-content/uploads/2018/08/kycklingcurry-D14I8962.jpg')),
                       ),
                     ),
-                    Container(
+                    Container( //texten
                       padding: EdgeInsets.all(15),
                       child: Column(
                         children: [
@@ -112,13 +112,15 @@ class SearchResult extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Column(
+                    Column( //hjärtat som nu sitter på fel ställe men får inte till det
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             IconButton(
                                 icon: Icon(Icons.favorite_border_outlined),
+                                iconSize: 18,
+                                color: Colors.white,
                                 onPressed: () {},
                                 alignment: Alignment.topRight),
                           ],
