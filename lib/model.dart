@@ -3,15 +3,15 @@ import 'Api.dart';
 
 class Recipe {
   final int id;
-  final String title;
+  final String title, imgURL;
 
-  Recipe({this.id, this.title});
+  Recipe({this.id, this.title, this.imgURL});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       id: json['id'],
       title: json['title'],
-      //imgURL: 'https://spoonacular.com/recipeImages/' + json['image'],
+      imgURL: json['image'],
     );
   } //fromJson ist fromMap?
 }
