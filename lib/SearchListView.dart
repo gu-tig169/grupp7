@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Favorites.dart';
 import 'Search.dart';
+import 'SearchList.dart';
 import 'homeScreen.dart';
+import 'model.dart';
 
 class SearchListView extends StatelessWidget {
   @override
@@ -44,11 +47,10 @@ class SearchListView extends StatelessWidget {
         ),
       ),
       body:
-          _nonsens(), //Lägg in Consumer (?) så man ser SearchList elementen
+      Consumer<MyState> (builder: (context, state, child) => SearchList(state.recipes)),
+         // _nonsens(), //Lägg in Consumer (?) så man ser SearchList elementen
     );
   }
 }
 
-Widget _nonsens() {
-  return Text('potato');
-}
+

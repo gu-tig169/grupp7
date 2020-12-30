@@ -10,11 +10,11 @@ class SearchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: list.map((item) => _recipeListItem(item)).toList(),
+      children: list.map((item) => _recipeListItem(context, item)).toList(),
     );
   }
 
-  Widget _recipeListItem(text) {
+  Widget _recipeListItem(context, Recipe item) {
     return Padding(
         padding: EdgeInsets.all(12),
         child: FittedBox(
@@ -34,10 +34,10 @@ class SearchList extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(24),
                         child: Image(
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                             alignment: Alignment.topLeft,
                             image: NetworkImage(
-                                'https://www.landleyskok.se/wp-content/uploads/2018/08/kycklingcurry-D14I8962.jpg')),
+                                item.imgURL)),
                       ),
                     ),
                     Container(
@@ -47,7 +47,7 @@ class SearchList extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(text,
+                              Text(item.title,
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white)),
                             ],
