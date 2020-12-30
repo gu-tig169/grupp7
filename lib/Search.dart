@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'SearchResult.dart';
+import 'SearchListView.dart';
 import 'Favorites.dart';
 import 'homeScreen.dart';
+import 'package:provider/provider.dart';
+
+import 'model.dart';
 
 //Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 
@@ -120,14 +123,14 @@ Widget _filters() {
   );
 }
 
-Widget _searchButton(BuildContext context) {
+Widget _searchButton(context) {
   return Container(
     width: 380,
     child: RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SearchResult()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SearchListView()));
       },
       color: Color(0xFF6C804B),
       child: Text('Search', style: TextStyle(color: Colors.white)),

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './homeScreen.dart';
+import 'model.dart';
 
 void main() {
-  runApp(MyApp());
+  var state = MyState();
+  state.randomRecipes();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => state,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
