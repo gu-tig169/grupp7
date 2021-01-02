@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'Favorites.dart';
-import 'Search.dart';
+import 'model.dart';
+import 'search/Search.dart';
 import 'homeScreen.dart';
 
 class RecipeView extends StatelessWidget {
@@ -28,7 +29,7 @@ class RecipeView extends StatelessWidget {
                 icon: Icon(Icons.search, color: Color(0xff6C804B)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Search()));
+                      MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
                 }),
             IconButton(
                 icon: Icon(Icons.view_list, color: Color(0xff6C804B)),

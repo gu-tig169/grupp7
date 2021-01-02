@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'Search.dart';
+import 'model.dart';
+import 'search/Search.dart';
 import 'homeScreen.dart';
 
 class Favorites extends StatelessWidget {
@@ -24,7 +25,7 @@ class Favorites extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.search, color: Color(0xff6C804B)),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
               }),
             IconButton(
               icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
@@ -54,13 +55,7 @@ BoxDecoration myBoxDecoration() {
 
 Widget _myFavorites() {
   var favoriteRecipies = [
-    'Kyckling',  
-    'Tacopaj', 
-    'bröd',
-    'kött',  
-    'nudlar',
-    'gröt',
-  ];
+];
 
   return ListView(
     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 64), //indragningen av kortet

@@ -12,8 +12,8 @@ Vendela: 24ed4573b07f4bfca8d8abade67de174
 Maja: eb9d1e824ad44421b3404337c77c485c */
 
 class Api {
-  static Future<List<Recipe>> getRandomRecipes() async {
-    var response = await http.get('$API_URL?apiKey=$API_KEY&number=10');
+  static Future<List<Recipe>> getRecipesFromSearch(String query) async {
+    var response = await http.get('$API_URL?query=$query&apiKey=$API_KEY');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
@@ -22,7 +22,7 @@ class Api {
       }).toList();
     } else {
       throw Exception(response.statusCode.toString());
-    }
+    } //ta hand
   }
 }
   
