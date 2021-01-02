@@ -18,10 +18,10 @@ class Recipe {
 
 class MyState extends ChangeNotifier {
   List<Recipe> _recipes = [];
-  List <Recipe> get recipes => _recipes;
+  List<Recipe> get recipes => _recipes;
 
-  Future randomRecipes() async {
-    List<Recipe> recipes = await Api.getRandomRecipes();
+  Future searchRecipes(String query) async {
+    List<Recipe> recipes = await Api.getRecipesFromSearch(query);
     _recipes = recipes;
     notifyListeners();
   }
