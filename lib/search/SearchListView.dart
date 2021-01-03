@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Favorites.dart';
+import '../bottomAppBar.dart';
 import 'Search.dart';
 import 'SearchList.dart';
 import '../homeScreen.dart';
@@ -19,32 +20,7 @@ class SearchListView extends StatelessWidget {
         centerTitle: true,
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                icon: Icon(Icons.home, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                }),
-            IconButton(
-                icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Favorites()));
-                }),
-            IconButton(
-                icon: Icon(Icons.search, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
-                }),
-            IconButton(
-                icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
-                onPressed: () {})
-          ],
-        ),
+        child: MyAppBar(),
       ),
       body:
       Consumer<MyState> (builder: (context, state, child) => SearchList(state.recipes)),
