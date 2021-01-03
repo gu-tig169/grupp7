@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../Api.dart';
+import '../bottomAppBar.dart';
 import 'SearchList.dart';
 import 'SearchListView.dart';
 import '../Favorites.dart';
@@ -36,43 +38,25 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Color(0xFF6C804B)),
+        elevation: 0,
+        title: Text('Search recipes',
+            style: TextStyle(color: Color(0xFF6C804B), fontSize: 20)),
+        centerTitle: true,
+      ),
       bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                icon: Icon(Icons.home, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                }),
-            IconButton(
-                icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Favorites()));
-                }),
-            IconButton(
-                icon: Icon(Icons.search, color: Color(0xff6C804B)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
-                }),
-            IconButton(
-                icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
-                onPressed: () {})
-          ],
-        ),
+        child: MyAppBar(),
       ),
       body: Center(
         child: Column(
           children: [
-            Container(height: 40),
             _searchInput(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.only(left: 20)),
-                Text('Advanced filter'),
+                Text('Filter'),
                 IconButton(
                   icon: Icon(Icons.arrow_drop_down_sharp),
                   onPressed: () {
@@ -118,22 +102,21 @@ class _SearchState extends State<Search> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-              padding: EdgeInsets.only(left: 0, top: 20, bottom: 10),
-              child: Text('Categories',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
           Wrap(
             spacing: 5,
             runSpacing: 3,
             children: [
-              Filter(chipName: 'Meat'),
-              Filter(chipName: 'Chicken'),
-              Filter(chipName: 'Vegetarian'),
-              Filter(chipName: 'Pasta'),
-              Filter(chipName: 'Rice'),
-              Filter(chipName: 'Noodles'),
-              Filter(chipName: 'Pizza'),
-              Filter(chipName: 'Fish'),
+              Filter(chipName: 'Main course', type: 'main course'),
+              Filter(chipName: 'Side dish', type: 'side dish'),
+              Filter(chipName: 'Dessert', type: 'dessert'),
+              Filter(chipName: 'Appetizer', type: 'appetizer'),
+              Filter(chipName: 'Salad', type: 'salad'),
+              Filter(chipName: 'Bread', type: 'bread'),
+              Filter(chipName: 'Breakfast', type: 'breakfast'),
+              Filter(chipName: 'Soup', type: 'soup'),
+              Filter(chipName: 'Sauce', type: 'sauce'),
+              Filter(chipName: 'Fingerfood', type: 'fingerfood'),
+              Filter(chipName: 'Snack', type: 'snack'),
             ],
           ),
         ],
@@ -167,8 +150,9 @@ class _SearchState extends State<Search> {
 
 class Filter extends StatefulWidget {
   final String chipName;
+  final String type;
 
-  Filter({Key key, this.chipName}) : super(key: key);
+  Filter({Key key, this.chipName, this.type}) : super(key: key);
 
   @override
   _FilterState createState() => _FilterState();
@@ -186,6 +170,8 @@ class _FilterState extends State<Filter> {
         setState(() {
           _isSelected = isSelected;
         });
+        print(_isSelected);
+
       },
       backgroundColor: Color(0xFFE8E0A1),
       selectedColor: Color(0xFFE8E0A1),
