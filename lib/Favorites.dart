@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'model.dart';
-import 'search/Search.dart';
+import 'package:favorite_button/favorite_button.dart';
+import 'Api.dart';
+//import 'Search.dart';
+import 'bottomAppBar.dart';
 import 'homeScreen.dart';
 
 class Favorites extends StatelessWidget {
@@ -9,30 +11,7 @@ class Favorites extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: Icon(Icons.home, color: Color(0xff6C804B)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-              }),
-            IconButton(
-              icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Favorites()));
-              }),
-            IconButton(
-              icon: Icon(Icons.search, color: Color(0xff6C804B)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
-              }),
-            IconButton(
-              icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
-              onPressed: () {
-              })
-          ],
-        ),
+        child: MyAppBar(),
       ),
       
       backgroundColor: Colors.white,
@@ -43,19 +22,21 @@ class Favorites extends StatelessWidget {
   }
 }
 
-BoxDecoration myBoxDecoration() {
+/*BoxDecoration myBoxDecoration() { //GÖR INGENTING????
   return BoxDecoration(
-    color: Colors.grey[100],
+    color: Colors.blue[100],
     border: Border.all(
-      width: 1, 
+      width: 10, 
       
     ),
   );
-}
+}*/
 
 Widget _myFavorites() {
   var favoriteRecipies = [
-];
+    'Kycklingoch ris ',  
+    
+  ];
 
   return ListView(
     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 64), //indragningen av kortet
@@ -67,14 +48,14 @@ Widget _favorite(text) {
    return Stack(
     children: [ 
       Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      height: 150,
-      width: 600,
+      margin: const EdgeInsets.only(bottom: 25), //avståndet mellan korten
+      height: 120, //höjden på kortet
+      width: 400, //längden på kortet
       decoration: BoxDecoration(
-        color: Color(0xFFF5AE58),
-        borderRadius: BorderRadius.all(Radius.circular(24)),
+        color: Color(0xff6C804B), //färgen på kortet
+        borderRadius: BorderRadius.all(Radius.circular(24)), //grad av rundning på hörnen
         boxShadow: [
-          BoxShadow(
+          BoxShadow( //skuggan under kortet, färgen på skuggen och storleken
             color: Colors.grey,
             offset: Offset(.0, 2.0),
             blurRadius: 6.0,
@@ -83,18 +64,18 @@ Widget _favorite(text) {
       ),
     ),
 
-  Container( 
-    height: 150,
+  /*Container( //boxen som skapar skuggan till höger av bilden
+    height: 120,
     width: 125,
     decoration: BoxDecoration(
       color: Colors.black12,
       borderRadius: BorderRadius.all(Radius.circular(24)),
     ),  
-  ),
+  ),*/
 
-  Container(
+  Container( //bilden
     width: 120,
-    height: 150,
+    height: 120,
     decoration: new BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(24)),
       image: new DecorationImage(
@@ -104,7 +85,7 @@ Widget _favorite(text) {
     ),
   ),
 
-  Positioned(
+  /*Positioned( //stjärnorna hårdkodade
     top: 16,
     left: 140,
       child: Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
@@ -118,19 +99,39 @@ Widget _favorite(text) {
           Text(' (144)', style: TextStyle(color: Colors.white, fontSize: 10.0),),
         ],
       ),
-  ),  
+  ),  */
 
-  Positioned(
-    top: 60,
-    left: 140,
-      child: Row(
-        children: [
-          Text(text, style: TextStyle(color: Colors.white, fontSize: 24.0)),
+  Positioned( //positionen på texten
+    top: 35,
+    left: 150,
+      child: Container (
+        alignment: Alignment.centerLeft,
+      //padding: const EdgeInsets.all(16.0),
+      width: 170,
+      child: Column (
+        children:[
+          Text(text, style: TextStyle(color: Colors.white, fontSize: 18.0)),
           
-          Text('42 min', style: TextStyle(color: Colors.white, fontSize: 10.0)),
         ],
       ), 
     ),
-        ],
+  ),
+
+ Positioned(
+   top: 45,
+   right: 20,
+   child: FavoriteButton(
+                iconSize: 40,
+                iconColor: Color(0xFFF5AE58),
+                isFavorite: false,
+                valueChanged: (_isFavorite) {
+                  print('Is Favorite : $_isFavorite');
+                },
+              ),
+ )
+ 
+
+
+  ],
   );
 }
