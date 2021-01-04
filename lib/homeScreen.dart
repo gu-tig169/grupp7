@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'bottomAppBar.dart';
-import 'recipeScreen.dart';
+import './bottomAppBar.dart';
+import './model.dart';
+import './featuredList.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -10,20 +12,24 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: BottomAppBar(
           child: MyAppBar(),
         ),
-        body: Column(
+        body:
+         Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _welcome(),
-              Container(
-                margin: EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                child: Text(
+              Row(
+                //Container
+               // margin: EdgeInsets.only(left: 20, top: 30, bottom: 15),
+                children: [Text(
                   'Featured recipes',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                ), _refresh(context)]
               ),
+             // _refresh(context),
               SizedBox(
                 height: 200,
-                child: _featuredRecipes(context),
+                child: 
+                Consumer<MyState> (builder: (context, state, child) => FeaturedList(state.recipes)),
               ),
               Container(
                 margin: EdgeInsets.only(left: 20, bottom: 10, top: 50),
@@ -36,7 +42,15 @@ class HomeScreen extends StatelessWidget {
                 height: 135,
                 child: _categories(),
               ),
-            ]));
+            ])
+            
+    );
+  }
+
+  Widget _refresh(context) {
+    return IconButton(icon: Icon(Icons.refresh), onPressed: () { Provider.of<MyState>(context, listen: false).fetchRecipes();
+    Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));} );
   }
 
   Widget _welcome() {
@@ -59,52 +73,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _featuredRecipes(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: <Widget>[
-        _recipe(context),
-        _recipe(context),
-        _recipe(context),
-      ],
-    );
-  }
 
-  Widget _recipe(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => RecipeView()));
-      },
-      child: Container(
-          margin: EdgeInsets.only(left: 8, right: 8),
-          width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            image: new DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://www.eatwell101.com/wp-content/uploads/2018/03/Garlic-Butter-flank-Steak-and-Potatoes-Skillet.jpg")),
-          ),
-          child: Container(
-              margin: EdgeInsets.only(top: 150),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: (Radius.circular(24)),
-                    bottomRight: (Radius.circular(24))),
-                color: Color(0x806C804B),
-              ),
-              child: Container(
-                  margin: EdgeInsets.only(left: 20, top: 5),
-                  child: Text(
-                    'Garlic Butter Steak and Potatoes Skillet',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                  )))),
-    );
-  }
 
   Widget _categories() {
     return ListView(
