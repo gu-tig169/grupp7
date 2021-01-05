@@ -25,7 +25,20 @@ class Api {
   }
 
   static Future<List<Recipe>> getFeaturedRecipes() async {
-    http.Response response = await http.get('$API_URL?number=5&sort=random&apiKey=$API_KEY');
+    var response = await http.get('$API_URL?number=5&sort=random&apiKey=$API_KEY');
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      print(json);
+      return json['results'].map<Recipe>((data) {
+        return Recipe.fromJson(data);
+      }).toList();
+    } else {
+      throw Exception(response.statusCode.toString());
+    }
+  }
+
+  static Future<List<Recipe>> getCuisine(String cuisine) async {
+    var response = await http.get('$API_URL?cuisine=$cuisine&apiKey=$API_KEY');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
