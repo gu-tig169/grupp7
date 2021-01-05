@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/search/SearchListView.dart';
 
 import './bottomAppBar.dart';
 import './model.dart';
-import './featuredList.dart';
+import './featuredList.dart' as custom;
+//import './Api.dart';
+//import 'recipeScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,19 +25,18 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _welcome(),
-              Row(
-                //Container
-               // margin: EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                children: [Text(
+              //Row(
+                Container(
+                margin: EdgeInsets.only(left: 20, top: 30, bottom: 15),
+                child: Text(
                   'Featured recipes',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ), _refresh(context)]
+                ),
               ),
-             // _refresh(context),
               SizedBox(
                 height: 200,
                 child: 
-                Consumer<MyState> (builder: (context, state, child) => FeaturedList(state.recipes)),
+                custom.recipesData()
               ),
               Container(
                 margin: EdgeInsets.only(left: 20, bottom: 10, top: 50),
@@ -42,15 +49,16 @@ class HomeScreen extends StatelessWidget {
                 height: 135,
                 child: _categories(),
               ),
+              _cuisine(context)
             ])
             
     );
   }
 
-  Widget _refresh(context) {
-    return IconButton(icon: Icon(Icons.refresh), onPressed: () { Provider.of<MyState>(context, listen: false).fetchRecipes();
+  Widget _cuisine(context) {
+    return FlatButton(child: Text('African'), onPressed: () {Provider.of<MyState>(context, listen: false).fetchCuisine('African');
     Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));} );
+    MaterialPageRoute(builder: (context) => SearchListView()));} );
   }
 
   Widget _welcome() {
@@ -72,8 +80,6 @@ class HomeScreen extends StatelessWidget {
           )),
     );
   }
-
-
 
   Widget _categories() {
     return ListView(
