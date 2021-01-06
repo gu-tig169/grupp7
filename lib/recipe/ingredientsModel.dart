@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/Api.dart';
 
 class Ingredient {
-  String ingredient, name;
+  String name, ingredient;
 
   Ingredient({this.ingredient, this.name});
 

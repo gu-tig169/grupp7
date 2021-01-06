@@ -26,8 +26,14 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future fetchRecipes() async {
+    List<Recipe> recipes = await Api.getFeaturedRecipes();
+    _recipes = recipes;
+    notifyListeners();
+  }
+
   Future fetchCuisine(String cuisine) async {
-    List <Recipe> recipes = await Api.getCuisine(cuisine);
+    List<Recipe> recipes = await Api.getCuisine(cuisine);
     _recipes = recipes;
     notifyListeners();
   }

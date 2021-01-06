@@ -28,7 +28,8 @@ class Api {
   }
 
   static Future<List<Recipe>> getFeaturedRecipes() async {
-    var response = await http.get('$API_URL?number=5&sort=random&apiKey=$API_KEY');
+    var response =
+        await http.get('$API_URL?number=5&sort=random&apiKey=$API_KEY');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
@@ -55,12 +56,12 @@ class Api {
 
   static Future<List<Ingredient>> getIngredients(int id) async {
     var url =
-        'https://api.spoonacular.com/recipes/$id/information?apiKey=$API_KEY';
+        'https://api.spoonacular.com/recipes/$id/information/?apiKey=$API_KEY';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
-      return json['results'].map<Ingredient>((data) {
+      return json['extendedIngredients'].map<Ingredient>((data) {
         return Ingredient.fromJson(data);
       }).toList();
     } else {
@@ -75,7 +76,7 @@ class Api {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
-      return json['results'].map<Instruction>((data) {
+      return json[0]['steps'].map<Instruction>((data) {
         return Instruction.fromJson(data);
       }).toList();
     } else {

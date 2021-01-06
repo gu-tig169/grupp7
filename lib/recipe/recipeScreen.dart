@@ -85,7 +85,7 @@ class _RecipeViewState extends State<RecipeView> {
           decoration: BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage((recipeInfo.recipe.image)),
+            image: NetworkImage((recipeInfo.recipe.imgURL)),
           )),
           alignment: Alignment.bottomLeft,
           child: Container(
