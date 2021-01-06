@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model.dart';
-import '../recipeScreen.dart';
+import '../recipe/recipeScreen.dart';
 
 class SearchList extends StatelessWidget {
   final List<Recipe> list;

@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import '../Api.dart';
 import '../bottomAppBar.dart';
-import 'SearchList.dart';
 import 'SearchListView.dart';
-import '../Favorites.dart';
-import '../homeScreen.dart';
 import 'package:provider/provider.dart';
-
 import '../model.dart';
 
 //Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 
 class Search extends StatefulWidget {
-
   final Recipe item;
   Search(this.item);
 
@@ -30,8 +24,8 @@ class _SearchState extends State<Search> {
     this.title = item.title;
     inputController.addListener(() {
       setState(() {
-      title = inputController.text;
-    });
+        title = inputController.text;
+      });
     });
   }
 
@@ -134,7 +128,8 @@ class _SearchState extends State<Search> {
             if (inputController.text.isEmpty) {
               _validate = true;
             } else if (inputController.text.isNotEmpty) {
-              Provider.of<MyState>(context, listen: false).searchRecipes(inputController.text);
+              Provider.of<MyState>(context, listen: false)
+                  .searchRecipes(inputController.text);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SearchListView()));
             }
@@ -171,7 +166,6 @@ class _FilterState extends State<Filter> {
           _isSelected = isSelected;
         });
         print(_isSelected);
-
       },
       backgroundColor: Color(0xFFE8E0A1),
       selectedColor: Color(0xFFE8E0A1),
