@@ -16,8 +16,8 @@ class SearchList extends StatelessWidget {
   Widget _recipeListItem(context, Recipe item) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => RecipeView()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RecipeView(recipe: item)));
       },
       child: Padding(
           padding: EdgeInsets.all(12),
