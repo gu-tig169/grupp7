@@ -8,29 +8,33 @@ import 'search/Search.dart';
 class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        IconButton(
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      IconButton(
           icon: Icon(Icons.home, color: Color(0xff6C804B)),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           }),
-        IconButton(
+      IconButton(
           icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Favorites()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Favorites()));
           }),
-        IconButton(
+      IconButton(
           icon: Icon(Icons.search, color: Color(0xff6C804B)),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Search(Recipe(title: ''))));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Search(Recipe(title: ''))));
           }),
-        IconButton(
+      /*IconButton(
           icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
-          onPressed: () {}
-        )
-      ]
-    );
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TestVy()));
+          }) */
+    ]);
   }
 }
