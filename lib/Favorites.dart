@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:favorite_button/favorite_button.dart';
+import 'package:provider/provider.dart';
 
 //import 'Search.dart';
 import 'bottomAppBar.dart';
+import 'model.dart';
 
 class Favorites extends StatelessWidget {
+  
+  final List<Recipe> favoriteList;
+  Favorites(this.favoriteList);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +19,11 @@ class Favorites extends StatelessWidget {
         child: MyAppBar(),
       ),
       backgroundColor: Colors.white,
-      body: _myFavorites(),
+      body: ListView(
+          padding: EdgeInsets.symmetric(
+              horizontal: 15, vertical: 64), //indragningen av kortet
+          children:
+              favoriteList.map((recipe) => _favorite(recipe)).toList()),
     );
   }
 }
@@ -28,19 +38,15 @@ class Favorites extends StatelessWidget {
   );
 }*/
 
-Widget _myFavorites() {
-  var favoriteRecipies = [
-    'Kycklingoch ris ',
-  ];
-
+/*Widget _myFavorites() {
   return ListView(
       padding: EdgeInsets.symmetric(
           horizontal: 15, vertical: 64), //indragningen av kortet
       children:
-          favoriteRecipies.map((favorite) => _favorite(favorite)).toList());
-}
+          favoriteList.map((favorite) => _favorite(favorite)).toList());
+}*/
 
-Widget _favorite(text) {
+Widget _favorite(Recipe recipe) {
   return Stack(
     children: [
       Container(
@@ -79,8 +85,7 @@ Widget _favorite(text) {
             borderRadius: BorderRadius.all(Radius.circular(24)),
             image: new DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://www.landleyskok.se/wp-content/uploads/2018/08/kycklingcurry-D14I8962.jpg"))),
+                image: NetworkImage(recipe.imgURL))),
       ),
 
       /*Positioned( //stjärnorna hårdkodade
@@ -109,7 +114,7 @@ Widget _favorite(text) {
           width: 170,
           child: Column(
             children: [
-              Text(text, style: TextStyle(color: Colors.white, fontSize: 18.0)),
+              Text(recipe.title, style: TextStyle(color: Colors.white, fontSize: 18.0)),
             ],
           ),
         ),
@@ -120,8 +125,9 @@ Widget _favorite(text) {
         child: FavoriteButton(
           iconSize: 40,
           iconColor: Color(0xFFF5AE58),
-          isFavorite: false,
-          valueChanged: (_isFavorite) {
+          isFavorite: recipe.isFavorite,
+          valueChanged: 
+          (_isFavorite) {
             print('Is Favorite : $_isFavorite');
           },
         ),

@@ -1,4 +1,6 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../model.dart';
 import '../recipe/recipeScreen.dart';
 
@@ -9,15 +11,17 @@ class SearchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: list.map((item) => _recipeListItem(context, item)).toList(),
+      children: list.map((recipe) => _recipeListItem(context, recipe)).toList(),
     );
   }
 
-  Widget _recipeListItem(context, Recipe item) {
+  Widget _recipeListItem(context, Recipe recipe) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RecipeView(recipe: item)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => RecipeView(recipe: recipe)));
       },
       child: Padding(
           padding: EdgeInsets.all(12),
@@ -40,7 +44,7 @@ class SearchList extends StatelessWidget {
                           child: Image(
                               fit: BoxFit.cover,
                               alignment: Alignment.topLeft,
-                              image: NetworkImage(item.imgURL)),
+                              image: NetworkImage(recipe.imgURL)),
                         ),
                       ),
                       Container(
@@ -50,7 +54,7 @@ class SearchList extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(item.title,
+                                Text(recipe.title,
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.white)),
                               ],
@@ -73,12 +77,16 @@ class SearchList extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              IconButton(
-                                  icon: Icon(Icons.favorite_border_outlined),
-                                  iconSize: 18,
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                  alignment: Alignment.topRight),
+                              FavoriteButton(
+                                iconSize: 40,
+                                iconColor: Color(0xFFF5AE58),
+                                isFavorite: recipe.isFavorite,
+                                valueChanged: (_isFavorite) {
+                                  Provider.of<MyState>(context, listen: false)
+                                        .getFavoriteValue(recipe);
+                                  print('Is Favorite : $_isFavorite');
+                                },
+                              ),
                             ],
                           )
                         ],

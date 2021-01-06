@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './homeScreen.dart';
-import './Favorites.dart';
+import './FavoriteView.dart';
 import 'model.dart';
 import 'search/Search.dart';
 
@@ -19,7 +19,7 @@ class MyAppBar extends StatelessWidget {
           icon: Icon(Icons.favorite, color: Color(0xff6C804B)),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Favorites()));
+                context, MaterialPageRoute(builder: (context) => FavoriteView()));
           }),
       IconButton(
           icon: Icon(Icons.search, color: Color(0xff6C804B)),
