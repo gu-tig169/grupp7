@@ -1,38 +1,30 @@
-import 'package:favorite_button/favorite_button.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:recipe_app/recipe/recipeScreen.dart';
+
+
+
 import '../model.dart';
-import '../recipe/recipeScreen.dart';
 
-class SearchList extends StatefulWidget {
-  final List<Recipe> list;
-  SearchList(this.list);
+class RecipeCard extends StatelessWidget {
+  final Recipe recipe;
+  final bool inFavorites;
+  final Function onFavoriteButtonPressed;
 
-  @override
-  _SearchListState createState() => _SearchListState();
-}
-
-class _SearchListState extends State<SearchList> {
-  bool isFavorite = false;
+  RecipeCard(
+      {@required this.recipe,
+      @required this.inFavorites,
+      @required this.onFavoriteButtonPressed});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: widget.list
-          .map((recipe) => _recipeListItem(context, recipe))
-          .toList(),
-    );
-  }
-
-  Widget _recipeListItem(context, Recipe recipe) {
-    return GestureDetector(
+  return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => RecipeView(recipe: recipe)));
       },
-      key: ValueKey(recipe.id),
       child: Padding(
           padding: EdgeInsets.all(12),
           child: FittedBox(
@@ -87,28 +79,28 @@ class _SearchListState extends State<SearchList> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              /*IconButton(
-                                  icon: isFavorite 
-                                  ? Icon(Icons.favorite)
-                                  : Icon(Icons.favorite_border), 
-                                  onPressed: () {
-                                    setState(() {
-                                      isFavorite = !isFavorite;
-                                    });
-                                    Provider.of<MyState>(context, listen: false)
-                                      .setFavoriteValue(recipe);
-                                  }),*/
+                              _buildFavoriteButton(),
 
-                              FavoriteButton(
+                              /*FavoriteButton(
                                 iconSize: 40,
                                 iconColor: Color(0xFFF5AE58),
-                                isFavorite: Provider.of<MyState>(context, listen: false).isFavorite(recipe),
+                                isFavorite: recipe.isFavorite,
                                 valueChanged: (_isFavorite) {
+                                 
+                                  setState(() {
+                                    
+                                  });
+
+                                    recipe.isFavorite = _isFavorite;
+                                  
+                                  
                                   Provider.of<MyState>(context, listen: false)
-                                    .toggleFavorite(recipe);
+                                      .setFavoriteValue(recipe);
+
                                   print('Is Favorite : $_isFavorite');
+                                  
                                 },
-                              ),
+                              ),*/
                             ],
                           )
                         ],
@@ -118,5 +110,20 @@ class _SearchListState extends State<SearchList> {
             ),
           )),
     );
-  }
+  
+}
+
+    Widget _buildFavoriteButton() {
+      return RawMaterialButton(
+        constraints: const BoxConstraints(minWidth: 40.0, minHeight: 40.0),
+        onPressed: () => onFavoriteButtonPressed(recipe.id),
+        child: Icon(
+          // Conditional expression:
+          // show "favorite" icon or "favorite border" icon depending on widget.inFavorites:
+          inFavorites == true ? Icons.favorite : Icons.favorite_border,
+        ),
+        elevation: 2.0,
+        fillColor: Colors.white,
+        shape: CircleBorder(),
+      ); }
 }

@@ -4,13 +4,8 @@ import 'Api.dart';
 class Recipe {
   final int id;
   final String title, imgURL;
-  bool isFavorite;
 
-  Recipe({this.id, this.title, this.imgURL, this.isFavorite = false});
-
-  void favoriteValue() {
-    isFavorite = !isFavorite;
-  }
+  Recipe({this.id, this.title, this.imgURL});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
@@ -24,6 +19,8 @@ class Recipe {
 class MyState extends ChangeNotifier {
   List<Recipe> _recipes = [];
   List<Recipe> get recipes => _recipes;
+  List<Recipe> _favoriteRecipes = [];
+  List<Recipe> get favoriteRecipes => _favoriteRecipes;
   /*List<Recipe> get favoriteList {
     return favoriteList.where((Recipe recipe) => recipe.isFavorite).toList();
   }*/
@@ -46,16 +43,20 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Recipe> favorite(bool isFavorite) {
-    if (isFavorite == true) {
-      return _recipes.where((recipe) => recipe.isFavorite).toList();
+  void toggleFavorite(Recipe recipe) {
+    final favoriteRecipe = _favoriteRecipes.firstWhere((favoriteRecipe) => favoriteRecipe.id == recipe.id, orElse: () => null);
+    //Hitta det första receptet i _favoriteRecipes som matchar med id:t på recepten vi hämtar
+    if (favoriteRecipe == null) {
+      _favoriteRecipes.add(recipe);
+      //Om vi trycker på hjärtat och favoriteRecipe inte har ett id som matchar, lägg till favoriteRecipe i _favoriteRecipes
+    } else {
+      _favoriteRecipes.remove(favoriteRecipe);
+      //Om vi trycker på hjärtat och id:t matchar, ta bort favoriteRecipe från _favoriteRecipes
     }
-    return null;
-  }
-
-  void getFavoriteValue(Recipe recipe) {
-    final recipeIndex = _recipes.indexOf(recipe);
-    _recipes[recipeIndex].favoriteValue();
     notifyListeners();
   }
+
+  bool isFavorite(Recipe recipe) {
+    return _favoriteRecipes.any((favoriteRecipe) => recipe.id == favoriteRecipe.id);
+  } //Värdet på om favoriteRecipe är favoritmarkerat eller ej
 }
