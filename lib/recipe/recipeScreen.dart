@@ -55,49 +55,52 @@ class _RecipeViewState extends State<RecipeView> {
           },
         ),
       ),
-      body: Column(children: <Widget>[
-        _recipeImage(),
-        // _recipeTitle(),
-        Container(
-          height: 30,
-        ),
-        _ingredientsLabel(),
-        Container(
-          height: 10,
-        ),
-        _ingredientList(),
-        Container(
-          height: 30,
-        ),
-        _instructionsLabel(),
-        Container(
-          height: 10,
-        ),
-        _instructionList(),
-      ]),
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          _recipeImage(),
+          // _recipeTitle(),
+          Container(
+            height: 30,
+          ),
+          _ingredientsLabel(),
+          Container(
+            height: 10,
+          ),
+          _ingredientList(),
+          Container(
+            height: 30,
+          ),
+          _instructionsLabel(),
+          Container(
+            height: 10,
+          ),
+          _instructionList(),
+        ]),
+      ),
     );
   }
 
   Widget _recipeImage() {
     return Stack(alignment: Alignment.center, children: <Widget>[
       Container(
-          height: 350,
+          height: 275,
           decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.0),
               image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage((recipeInfo.recipe.imgURL)),
-          )),
+                fit: BoxFit.cover,
+                image: NetworkImage((recipeInfo.recipe.imgURL)),
+              )),
           alignment: Alignment.bottomLeft,
           child: Container(
-              height: 100,
+              height: 50,
               width: 500,
-              color: Colors.black.withOpacity(0.6),
+              color: Color(0x806C804B).withOpacity(0.5),
               child: Center(
                   child: Padding(
                       padding: EdgeInsets.only(left: 15),
                       child: Text(recipeInfo.recipe.title,
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             color: Colors.white,
                           ))))))
     ]);
@@ -108,10 +111,19 @@ class _RecipeViewState extends State<RecipeView> {
     return Padding(
         padding: EdgeInsets.all(15),
         child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                left: BorderSide(
+                  color: Colors.lightGreen[700],
+                  style: BorderStyle.solid,
+                  width: 2.0,
+                ),
+              ),
+            ),
             child: ListView.builder(
                 primary: false,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
                 itemCount: ingredients.length,
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -126,16 +138,24 @@ class _RecipeViewState extends State<RecipeView> {
     return Padding(
         padding: EdgeInsets.all(15),
         child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                left: BorderSide(
+                  color: Colors.lightGreen[700],
+                  style: BorderStyle.solid,
+                  width: 2.0,
+                ),
+              ),
+            ),
             child: ListView.builder(
                 primary: false,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
                 itemCount: instructions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                       title: Text(
                     instructions[index].step,
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 16),
                   ));
                 })));
   }
@@ -162,7 +182,7 @@ Widget _instructionsLabel() {
       child: Container(
         alignment: Alignment.bottomLeft,
         child: Text(
-          'Preparation',
+          'Instructions',
           style: TextStyle(
               fontSize: 22, color: Colors.black, fontWeight: (FontWeight.bold)),
         ),
