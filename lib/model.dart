@@ -31,12 +31,6 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future fetchRecipes() async {
-    List<Recipe> recipes = await Api.getFeaturedRecipes();
-    _recipes = recipes;
-    notifyListeners();
-  }
-
   Future fetchCuisine(String cuisine) async {
     List<Recipe> recipes = await Api.getCuisine(cuisine);
     _recipes = recipes;
@@ -44,7 +38,9 @@ class MyState extends ChangeNotifier {
   }
 
   void toggleFavorite(Recipe recipe) {
-    final favoriteRecipe = _favoriteRecipes.firstWhere((favoriteRecipe) => favoriteRecipe.id == recipe.id, orElse: () => null);
+    final favoriteRecipe = _favoriteRecipes.firstWhere(
+        (favoriteRecipe) => favoriteRecipe.id == recipe.id,
+        orElse: () => null);
     //Hitta det första receptet i _favoriteRecipes som matchar med id:t på recepten vi hämtar
     if (favoriteRecipe == null) {
       _favoriteRecipes.add(recipe);

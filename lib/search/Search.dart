@@ -4,7 +4,7 @@ import '../bottomAppBar.dart';
 import 'SearchList.dart';
 import 'SearchListView.dart';
 import '../Favorites.dart';
-import '../homeScreen.dart';
+import '../home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../model.dart';

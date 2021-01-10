@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './homeScreen.dart';
+import 'home/home_screen.dart';
 import 'model.dart';
-
 
 void main() {
   var state = MyState();
