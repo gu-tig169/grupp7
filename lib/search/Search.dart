@@ -12,7 +12,6 @@ import '../model.dart';
 //Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 
 class Search extends StatefulWidget {
-
   final Recipe recipe;
   Search(this.recipe);
 
@@ -45,6 +44,9 @@ class _SearchState extends State<Search> {
         title: Text('Search recipes',
             style: TextStyle(color: Color(0xFF6C804B), fontSize: 20)),
         centerTitle: true,
+        actions: [
+          _filterButton(),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: MyAppBar(),
@@ -52,22 +54,11 @@ class _SearchState extends State<Search> {
       body: Center(
         child: Column(
           children: [
-            _searchInput(),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(left: 20)),
-                Text('Filter'),
-                IconButton(
-                  icon: Icon(Icons.arrow_drop_down_sharp),
-                  onPressed: () {
-                    setState(() {
-                      _isPressed = !_isPressed;
-                    });
-                  },
-                ), //Kan man flytta ut denna på något smidigt sätt? Den måste ju ligga
-              ],
-            ),
-            if (_isPressed) _filters(),
+            Container(height: 5),
+            _searchInputField(),
+            Container(height: 10),
+            //_filterButton(),
+            if (_isPressed) _showFilters(),
             Container(height: 10),
             _searchButton(context),
           ],
@@ -76,15 +67,27 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _searchInput() {
+  Widget _searchInputField() {
     return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            //skuggan under sökfältet, färgen på skuggen och storleken
+            color: Colors.grey,
+            offset: Offset.zero,
+            blurRadius: 3.0,
+          ),
+        ],
+      ),
       width: 380,
       child: TextField(
         controller: inputController,
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFFE5F7D1),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide.none),
           prefixIcon: Padding(
             padding: const EdgeInsetsDirectional.only(start: 12),
             child: Icon(Icons.search),
@@ -97,7 +100,18 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _filters() {
+  Widget _filterButton() {
+    return IconButton(
+      icon: Icon(Icons.filter_alt_outlined),
+      onPressed: () {
+        setState(() {
+          _isPressed = !_isPressed;
+        });
+      },
+    );
+  }
+
+  Widget _showFilters() {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +148,8 @@ class _SearchState extends State<Search> {
             if (inputController.text.isEmpty) {
               _validate = true;
             } else if (inputController.text.isNotEmpty) {
-              Provider.of<MyState>(context, listen: false).searchRecipes(inputController.text);
+              Provider.of<MyState>(context, listen: false)
+                  .searchRecipes(inputController.text);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SearchListView()));
             }
@@ -171,8 +186,7 @@ class _FilterState extends State<Filter> {
           _isSelected = isSelected;
         });
         print(_isSelected);
-        
-        },
+      },
       backgroundColor: Color(0xFFE8E0A1),
       selectedColor: Color(0xFFE8E0A1),
     );

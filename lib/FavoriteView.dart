@@ -24,3 +24,7 @@ class FavoriteView extends StatelessWidget {
   }
 }
 
+//Valde att göra en separat fil för att kunna lägga till titel längst upp. 
+//Hade kunnat göra Provider.of<MyState> av favoriteRecipes direkt i bottomAppBar men ville ha lite specifik design
+//Samma med SearchList
+

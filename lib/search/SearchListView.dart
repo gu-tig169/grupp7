@@ -24,7 +24,6 @@ class SearchListView extends StatelessWidget {
       ),
       body: Consumer<MyState>(
           builder: (context, state, child) => SearchList(state.recipes)),
-      // _nonsens(), //Lägg in Consumer (?) så man ser SearchList elementen
     );
   }
 }
