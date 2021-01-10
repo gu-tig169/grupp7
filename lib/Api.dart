@@ -6,7 +6,7 @@ import 'package:recipe_app/recipe/recipeModel.dart';
 import 'model.dart';
 
 const API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
-const API_KEY = '84469f9abfd3421faed7b60636448162';
+const API_KEY = 'eb9d1e824ad44421b3404337c77c485c';
 
 /*API NYCKLAR:
 Julia: 84469f9abfd3421faed7b60636448162
@@ -14,7 +14,7 @@ Vendela: 24ed4573b07f4bfca8d8abade67de174
 Maja: eb9d1e824ad44421b3404337c77c485c */
 
 class Api {
-  static Future<List<Recipe>> getRecipesFromSearch(String query) async {
+  static Future<List<Recipe>> getRecipesBySearch(String query) async {
     var response = await http.get('$API_URL?query=$query&apiKey=$API_KEY');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
