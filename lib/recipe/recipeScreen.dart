@@ -3,7 +3,7 @@ import 'package:recipe_app/Api.dart';
 import 'package:recipe_app/search/Search.dart';
 
 import '../bottomAppBar.dart';
-import '../homeScreen.dart';
+import '../home/home_screen.dart';
 import '../model.dart';
 
 class RecipeView extends StatefulWidget {
