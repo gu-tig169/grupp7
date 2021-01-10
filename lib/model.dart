@@ -26,7 +26,7 @@ class MyState extends ChangeNotifier {
   }*/
 
   Future searchRecipes(String query) async {
-    List<Recipe> recipes = await Api.getRecipesFromSearch(query);
+    List<Recipe> recipes = await Api.getRecipesBySearch(query);
     _recipes = recipes;
     notifyListeners();
   }
@@ -53,7 +53,6 @@ class MyState extends ChangeNotifier {
   }
 
   bool isFavorite(Recipe recipe) {
-    return _favoriteRecipes
-        .any((favoriteRecipe) => recipe.id == favoriteRecipe.id);
-  } //Värdet på om favoriteRecipe är favoritmarkerat eller ej
+    return _favoriteRecipes.any((favoriteRecipe) => recipe.id == favoriteRecipe.id);
+  } //Värdet på om favoriteRecipe är favoritmarkerat eller ej genom att kolla om id:t stämmer överens
 }
