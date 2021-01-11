@@ -1,14 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:recipe_app/models/ingredients_model.dart';
-
-
-import 'package:recipe_app/models/instructions_model.dart';
 import 'package:recipe_app/models/model.dart';
-import 'package:recipe_app/models/recipe_info_model.dart';
-
 const API_URL = 'https://api.spoonacular.com/recipes';
-const API_KEY = '84469f9abfd3421faed7b60636448162';
+const API_KEY = 'f7c8246af3864e1eb09248569b8e2d7f';
 
 /*API NYCKLAR:
 Julia: 84469f9abfd3421faed7b60636448162
@@ -83,13 +77,6 @@ class Api {
       }).toList();
     } else {
       throw Exception(response.statusCode.toString());
-    } //ta hand
-  }
-
-  static Future getRecipeInformation(Recipe recipe) async {
-    var ingredient = await getIngredients(recipe.id);
-    var instructions = await getInstructions(recipe.id);
-    return RecipeInformation(
-        ingredient: ingredient, instructions: instructions, recipe: recipe);
+    }
   }
 }

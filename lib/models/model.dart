@@ -13,7 +13,31 @@ class Recipe {
       title: json['title'],
       imgURL: json['image'],
     );
-  } //fromJson ist fromMap?
+  }
+}
+
+class Instruction {
+  String step;
+  int number;
+
+  Instruction({this.step, this.number});
+
+  static Instruction fromJson(Map<String, dynamic> json) {
+    return Instruction(step: json['step'], number: json['number']);
+  }
+}
+
+class Ingredient {
+  String ingredient;
+  int id;
+
+  Ingredient({Key key, this.ingredient, this.id});
+
+  static Ingredient fromJson(Map<String, dynamic> json) {
+    return Ingredient(
+      ingredient: json['original'],
+      id: json['id']);
+  }
 }
 
 class MyState extends ChangeNotifier {
@@ -21,6 +45,21 @@ class MyState extends ChangeNotifier {
   List<Recipe> get recipes => _recipes;
   List<Recipe> _favoriteRecipes = [];
   List<Recipe> get favoriteRecipes => _favoriteRecipes;
+  List<Ingredient> _ingredients = [];
+  List<Ingredient> get ingredients => _ingredients;
+  List<Instruction> _instructions = [];
+  List<Instruction> get instructions => _instructions;
+
+  Future getDetailedInformation(Recipe recipe) async {
+    _ingredients = [];
+    _instructions = [];
+    notifyListeners();
+    List<Ingredient> ingredients = await Api.getIngredients(recipe.id);
+    _ingredients = ingredients;
+    List<Instruction> instructions = await Api.getInstructions(recipe.id);
+    _instructions = instructions;
+    notifyListeners();
+  }
   
 
   Future searchRecipes(String query) async {
