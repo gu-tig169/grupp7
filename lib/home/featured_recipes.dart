@@ -15,8 +15,8 @@ FutureBuilder featuredRecipesData() {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.transparent),
+        return Center(
+          child: CircularProgressIndicator(),
         );
       });
 }
