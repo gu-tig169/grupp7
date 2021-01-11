@@ -1,4 +1,6 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_app/Api.dart';
 import 'package:recipe_app/search/Search.dart';
 
@@ -43,17 +45,10 @@ class _RecipeViewState extends State<RecipeView> {
       ),
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xff6C804B)),
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Search(Recipe(title: ''))));
-          },
-        ),
+       
       ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
@@ -101,7 +96,7 @@ class _RecipeViewState extends State<RecipeView> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3),
+                          offset: Offset(10, 10),
                         )
                       ],
                     ),
@@ -109,15 +104,34 @@ class _RecipeViewState extends State<RecipeView> {
                     child: Container(
                         height: 50,
                         width: 500,
-                        color: Colors.grey.withOpacity(0.5),
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                        bottomLeft: (Radius.circular(15)),
+                        bottomRight: (Radius.circular(15))),
+                        color: Color(0xff6C804B).withOpacity(0.5),),
                         child: Center(
                             child: Padding(
-                                padding: EdgeInsets.only(right: 170.0),
+                                padding: EdgeInsets.only(left: 5.0),
                                 child: Text(recipeInfo.recipe.title,
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       color: Colors.white,
-                                    ))))))),
+                    ))))))),
+                    Positioned(
+                      top: 15,
+                      right: 25,
+                      child: FavoriteButton(
+                        iconSize: 40,
+                        iconColor: Color(0xff6C804B),
+                        isFavorite: Provider.of<MyState>(context, listen: false)
+                          .isFavorite(widget.recipe),
+                          valueChanged: (_isFavorite) {
+                            Provider.of<MyState>(context, listen: false)
+                              .toggleFavorite(widget.recipe);
+                            print('Is Favorite : $_isFavorite');
+                      },
+                      ),
+           )
           ],
         ),
       ],

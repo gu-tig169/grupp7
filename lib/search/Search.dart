@@ -3,7 +3,7 @@ import '../Api.dart';
 import '../bottomAppBar.dart';
 import 'SearchList.dart';
 import 'SearchListView.dart';
-import '../Favorites.dart';
+import '../favorite/Favorites.dart';
 import '../home/home_screen.dart';
 import 'package:provider/provider.dart';
 

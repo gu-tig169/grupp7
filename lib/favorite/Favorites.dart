@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/card.dart';
-
-//import 'Search.dart';
-import 'bottomAppBar.dart';
-import 'model.dart';
+import '../bottomAppBar.dart';
+import '../model.dart';
 
 class Favorites extends StatelessWidget {
   
