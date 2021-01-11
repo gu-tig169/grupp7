@@ -1,10 +1,6 @@
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/services/api.dart';
-
 import '../utils/my_app_bar.dart';
-import 'home_view.dart';
 import '../../models/model.dart';
 
 class RecipeView extends StatefulWidget {
@@ -16,206 +12,107 @@ class RecipeView extends StatefulWidget {
 }
 
 class _RecipeViewState extends State<RecipeView> {
-  var recipeInfo;
-
-  void _getRecipeInformation(Recipe recipe) async {
-    var information = await Api.getRecipeInformation(recipe);
-    setState(() {
-      recipeInfo = information;
-    });
-  }
-
+  @override
   initState() {
     super.initState();
-    _getRecipeInformation(widget.recipe);
+    Provider.of<MyState>(context, listen: false)
+        .getDetailedInformation(widget.recipe);
   }
 
   @override
   Widget build(BuildContext context) {
-    GestureDetector(
-      onTap: () {
-        Navigator.pop(
-            context, MaterialPageRoute(builder: (context) => HomeView()));
-      },
-    );
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Color(0xFF6C804B)),
+        elevation: 0,
+        title: Text(widget.recipe.title,
+            style: TextStyle(color: Color(0xFF6C804B), fontSize: 20)),
+        centerTitle: true,
+      ),
       bottomNavigationBar: BottomAppBar(
         child: MyAppBar(),
       ),
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Color(0xff6C804B)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-       
-      ),
-      body: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          _recipeImage(),
-          // _recipeTitle(),
-          Container(
-            height: 30,
-          ),
-          _ingredientsLabel(),
-          Container(
-            height: 10,
-          ),
-          _ingredientList(),
-          Container(
-            height: 30,
-          ),
-          _instructionsLabel(),
-          Container(
-            height: 10,
-          ),
-          _instructionList(),
-        ]),
+      body: ListView(
+        children: [
+          _image(),
+          Container(height: 20),
+          _ingredientsTitle(),
+          Container(height: 20),
+          _ingredientsList(),
+          Container(height: 20),
+          _instructionsTitle(),
+          Container(height: 20),
+          _instructionsList(),
+        ],
       ),
     );
   }
 
-  Widget _recipeImage() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        SizedBox(height: 40),
-        Stack(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                child: Container(
-                    height: 275.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      image: DecorationImage(
-                          image: NetworkImage((recipeInfo.recipe.imgURL)),
-                          fit: BoxFit.cover),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(10, 10),
-                        )
-                      ],
-                    ),
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                        height: 50,
-                        width: 500,
-                        decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                        bottomLeft: (Radius.circular(15)),
-                        bottomRight: (Radius.circular(15))),
-                        color: Color(0xff6C804B).withOpacity(0.5),),
-                        child: Center(
-                            child: Padding(
-                                padding: EdgeInsets.only(left: 5.0),
-                                child: Text(recipeInfo.recipe.title,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                    ))))))),
-                    Positioned(
-                      top: 15,
-                      right: 25,
-                      child: FavoriteButton(
-                        iconSize: 40,
-                        iconColor: Color(0xff6C804B),
-                        isFavorite: Provider.of<MyState>(context, listen: false)
-                          .isFavorite(widget.recipe),
-                          valueChanged: (_isFavorite) {
-                            Provider.of<MyState>(context, listen: false)
-                              .toggleFavorite(widget.recipe);
-                            print('Is Favorite : $_isFavorite');
-                      },
-                      ),
-           )
-          ],
+  Widget _image() {
+    return Container(
+        margin: EdgeInsets.only(left: 15, right: 15),
+        width: 550,
+        height: 250,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(24)),
+          image: new DecorationImage(
+              fit: BoxFit.fill, image: NetworkImage(widget.recipe.imgURL)),
         ),
-      ],
+        child: Container(
+            margin: EdgeInsets.only(top: 190),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: (Radius.circular(24)),
+                  bottomRight: (Radius.circular(24))),
+              color: Color(0x806C804B),
+            ),
+            child: Container(
+              margin: EdgeInsets.only(left: 20, top: 5),
+              child: Text(
+                widget.recipe.title,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            )));
+  }
+
+  Widget _ingredientsTitle() {
+    return Container(
+      alignment: Alignment.topLeft,
+      margin: EdgeInsets.only(left: 20),
+      child: Text('Ingredients',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 
-  Widget _ingredientList() {
-    var ingredients = recipeInfo.ingredient;
-    return Padding(
-        padding: EdgeInsets.all(15),
-        child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(
-                  color: Colors.lightGreen[700],
-                  style: BorderStyle.solid,
-                  width: 2.0,
-                ),
-              ),
-            ),
-            child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: ingredients.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      title: Text(
-                    ingredients[index].ingredient,
-                  ));
-                })));
+  Widget _ingredientsList() {
+    List<Ingredient> ingredients = Provider.of<MyState>(context).ingredients;
+    return Column(
+        children: ingredients
+            .map((ingredient) => ListTile(title: Text(ingredient.ingredient)))
+            .toList());
+    //Ej listen: false då den behöver uppdateras efter att vi kommit in i vyn
+  } //Litsen: false = rita ej om?
+
+  Widget _instructionsTitle() {
+    return Container(
+      alignment: Alignment.topLeft,
+      margin: EdgeInsets.only(left: 20),
+      child: Text('Instructions',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+    );
   }
 
-  Widget _instructionList() {
-    var instructions = recipeInfo.instructions;
-    return Padding(
-        padding: EdgeInsets.all(15),
-        child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(
-                  color: Colors.lightGreen[700],
-                  style: BorderStyle.solid,
-                  width: 2.0,
-                ),
-              ),
-            ),
-            child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                itemCount: instructions.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      title: Text(
-                    instructions[index].step,
-                    style: TextStyle(fontSize: 16),
-                  ));
-                })));
+  Widget _instructionsList() {
+    List<Instruction> instructions = Provider.of<MyState>(context).instructions;
+    return Column(
+        children: instructions
+            .map((instruction) => ListTile(
+                leading: Text(instruction.number.toString()),
+                title: Text(instruction.step)))
+            .toList());
   }
-
-  Widget _ingredientsLabel() {
-    return Padding(
-        padding: EdgeInsets.only(left: 30),
-        child: Container(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            'Ingredients',
-            style: TextStyle(
-                fontSize: 22,
-                color: Colors.black,
-                fontWeight: (FontWeight.bold)),
-          ),
-        ));
-  }
-}
-
-Widget _instructionsLabel() {
-  return Padding(
-      padding: EdgeInsets.only(left: 30),
-      child: Container(
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          'Instructions',
-          style: TextStyle(
-              fontSize: 22, color: Colors.black, fontWeight: (FontWeight.bold)),
-        ),
-      ));
 }
