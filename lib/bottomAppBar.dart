@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import './homeScreen.dart';
-import './FavoriteView.dart';
+import 'favorite/FavoriteView.dart';
+import 'home/home_screen.dart';
 import 'model.dart';
 import 'search/Search.dart';
 
@@ -29,12 +28,6 @@ class MyAppBar extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => Search(Recipe(title: ''))));
           }),
-      /*IconButton(
-          icon: Icon(Icons.view_list, color: Color(0xff6C804B)),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => TestVy()));
-          }) */
     ]);
   }
 }
