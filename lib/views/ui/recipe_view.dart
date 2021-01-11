@@ -1,12 +1,11 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/Api.dart';
-import 'package:recipe_app/search/Search.dart';
+import 'package:recipe_app/services/api.dart';
 
-import '../bottomAppBar.dart';
-import '../home/home_screen.dart';
-import '../model.dart';
+import '../utils/my_app_bar.dart';
+import 'home_view.dart';
+import '../../models/model.dart';
 
 class RecipeView extends StatefulWidget {
   final Recipe recipe;
@@ -36,7 +35,7 @@ class _RecipeViewState extends State<RecipeView> {
     GestureDetector(
       onTap: () {
         Navigator.pop(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            context, MaterialPageRoute(builder: (context) => HomeView()));
       },
     );
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../card.dart';
-import '../model.dart';
+import '../views/utils/card.dart';
+import '../models/model.dart';
 
 class SearchList extends StatefulWidget {
   final List<Recipe> list;

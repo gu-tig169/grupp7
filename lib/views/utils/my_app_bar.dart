@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'favorite/FavoriteView.dart';
-import 'home/home_screen.dart';
-import 'model.dart';
-import 'search/Search.dart';
+import '../ui/favorite_list_view.dart';
+import '../ui/home_view.dart';
+import '../../models/model.dart';
+import '../ui/search_view.dart';
 
 class MyAppBar extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class MyAppBar extends StatelessWidget {
           icon: Icon(Icons.home, color: Color(0xff6C804B)),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                context, MaterialPageRoute(builder: (context) => HomeView()));
           }),
       IconButton(
           icon: Icon(Icons.favorite, color: Color(0xff6C804B)),

@@ -1,8 +1,8 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/model.dart';
-import 'package:recipe_app/recipe/recipeScreen.dart';
+import 'package:recipe_app/models/model.dart';
+import 'package:recipe_app/views/ui/recipe_view.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
