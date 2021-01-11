@@ -30,7 +30,7 @@ class _RecipeCardState extends State<RecipeCard> {
             height: 120, //höjden på kortet
             width: 400, //längden på kortet
             decoration: BoxDecoration(
-              color: Colors.grey[100], //färgen på kortet
+              color: Colors.grey[50], //färgen på kortet
               borderRadius: BorderRadius.all(
                   Radius.circular(3)), //grad av rundning på hörnen
               boxShadow: [
