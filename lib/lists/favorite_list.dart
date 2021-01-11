@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/models/model.dart';
+import 'package:recipe_app/views/utils/card.dart';
+import 'package:recipe_app/views/utils/my_app_bar.dart';
 
-import 'package:favorite_button/favorite_button.dart';
-import 'package:provider/provider.dart';
-import 'package:recipe_app/card.dart';
-import '../bottomAppBar.dart';
-import '../model.dart';
 
-class Favorites extends StatelessWidget {
+class FavoriteList extends StatelessWidget {
   
   final List<Recipe> favoriteList;
-  Favorites(this.favoriteList);
+  FavoriteList(this.favoriteList);
 
   @override
   Widget build(BuildContext context) {

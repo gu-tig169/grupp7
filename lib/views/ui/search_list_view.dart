@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../bottomAppBar.dart';
+import '../utils/my_app_bar.dart';
 
-import 'SearchList.dart';
+import '../../lists/search_list.dart';
 
-import '../model.dart';
+import '../../models/model.dart';
 
 class SearchListView extends StatelessWidget {
   @override

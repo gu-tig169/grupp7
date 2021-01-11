@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Favorites.dart';
-import '../model.dart';
+import 'package:recipe_app/lists/favorite_list.dart';
+
+import '../../models/model.dart';
 
 class FavoriteView extends StatelessWidget {
   final bool isFavorite;
@@ -18,8 +19,7 @@ class FavoriteView extends StatelessWidget {
         centerTitle: true,
       ),
       body: Consumer<MyState>(
-          builder: (context, state, child) => Favorites(state.favoriteRecipes)),
-        //Lägg in Consumer (?) så man ser SearchList elementen
+          builder: (context, state, child) => FavoriteList(state.favoriteRecipes)),
     );
   }
 }

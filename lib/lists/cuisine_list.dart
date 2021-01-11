@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/search/SearchListView.dart';
+import 'package:recipe_app/views/ui/search_list_view.dart';
 
-import '../model.dart';
+import '../models/model.dart';
 
 class CuisineList extends StatelessWidget {
   final List<String> cuisineListOne = <String>[

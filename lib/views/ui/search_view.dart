@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../Api.dart';
-import '../bottomAppBar.dart';
-import 'SearchList.dart';
-import 'SearchListView.dart';
-import '../favorite/Favorites.dart';
-import '../home/home_screen.dart';
+import '../../services/api.dart';
+import '../utils/my_app_bar.dart';
+import '../../lists/search_list.dart';
+import 'search_list_view.dart';
+import '../../lists/favorite_list.dart';
+import 'home_view.dart';
 import 'package:provider/provider.dart';
 
-import '../model.dart';
+import '../../models/model.dart';
 
 //Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 

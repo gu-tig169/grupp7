@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:recipe_app/recipe/recipeScreen.dart';
+import 'package:recipe_app/views/ui/recipe_view.dart';
 
-import '../model.dart';
-import '../Api.dart';
+import '../models/model.dart';
+import '../services/api.dart';
 
 FutureBuilder featuredRecipesData() {
   return FutureBuilder<List<Recipe>>(

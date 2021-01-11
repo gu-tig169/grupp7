@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../bottomAppBar.dart';
-import 'featured_recipes.dart' as featured_list;
-import 'cuisine_list.dart';
+import '../utils/my_app_bar.dart';
+import '../../lists/featured_recipes_list.dart' as featured_list;
+import '../../lists/cuisine_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

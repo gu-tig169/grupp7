@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:recipe_app/Api.dart';
+import 'package:recipe_app/services/api.dart';
 
 class Ingredient {
   String name, ingredient;

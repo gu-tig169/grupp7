@@ -1,6 +1,6 @@
-import 'ingredientsModel.dart';
-import 'instructionsModel.dart';
-import '../model.dart';
+import 'ingredients_model.dart';
+import 'instructions_model.dart';
+import 'model.dart';
 
 class RecipeInformation {
   Recipe recipe;

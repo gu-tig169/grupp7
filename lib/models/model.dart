@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Api.dart';
+import '../services/api.dart';
 
 class Recipe {
   final int id;
@@ -21,9 +21,7 @@ class MyState extends ChangeNotifier {
   List<Recipe> get recipes => _recipes;
   List<Recipe> _favoriteRecipes = [];
   List<Recipe> get favoriteRecipes => _favoriteRecipes;
-  /*List<Recipe> get favoriteList {
-    return favoriteList.where((Recipe recipe) => recipe.isFavorite).toList();
-  }*/
+  
 
   Future searchRecipes(String query) async {
     List<Recipe> recipes = await Api.getRecipesBySearch(query);
