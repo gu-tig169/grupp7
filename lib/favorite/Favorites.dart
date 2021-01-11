@@ -23,7 +23,7 @@ class Favorites extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: 15, vertical: 0), //indragningen av kortet
           children:
-              favoriteList.map((recipe) => RecipeCard(recipe: recipe)).toList()),
+              favoriteList.map((favoriteRecipe) => RecipeCard(recipe: favoriteRecipe, key: ValueKey(favoriteRecipe.id))).toList()),
     );
   }
 }

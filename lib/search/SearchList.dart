@@ -18,7 +18,7 @@ class _SearchListState extends State<SearchList> {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
       children:
-          widget.list.map((recipe) => RecipeCard(recipe: recipe)).toList(),
+          widget.list.map((recipe) => RecipeCard(recipe: recipe, key: ValueKey(recipe.id))).toList(),
     );
   }
 }
