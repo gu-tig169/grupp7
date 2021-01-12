@@ -132,7 +132,7 @@ class _RecipeViewState extends State<RecipeView> {
               .toList()),
     );
     //Ej listen: false då den behöver uppdateras efter att vi kommit in i vyn
-  } //Litsen: false = rita ej om?
+  } //Litsen: false = rita ej om? Kanske vettigt att använda Consumer då?
 
   Widget _instructionsTitle() {
     return Container(
