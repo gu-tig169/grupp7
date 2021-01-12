@@ -13,7 +13,7 @@ Maja: eb9d1e824ad44421b3404337c77c485c */
 
 class Api {
   static Future<List<Recipe>> getRecipesBySearch(String query) async {
-    var response = await http.get('$API_URL/complexSeach?query=$query&apiKey=$API_KEY');
+    var response = await http.get('$API_URL/complexSearch?query=$query&apiKey=$API_KEY');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       print(json);
