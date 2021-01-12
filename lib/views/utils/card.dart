@@ -26,16 +26,15 @@ class _RecipeCardState extends State<RecipeCard> {
       child: Stack(
         children: [
           Container(
-            margin: const EdgeInsets.only(bottom: 15), //avståndet mellan korten
-            height: 120, //höjden på kortet
-            width: 400, //längden på kortet
+            margin: const EdgeInsets.only(bottom: 15),
+            height: 120, 
+            width: 400,
             decoration: BoxDecoration(
-              color: Colors.grey[100], //färgen på kortet
+              color: Colors.grey[100], 
               borderRadius: BorderRadius.all(
-                  Radius.circular(3)), //grad av rundning på hörnen
+                  Radius.circular(3)), 
               boxShadow: [
                 BoxShadow(
-                  //skuggan under kortet, färgen på skuggen och storleken
                   color: Colors.grey,
                   offset: Offset(.0, 2.0),
                   blurRadius: 3.0,
@@ -44,7 +43,6 @@ class _RecipeCardState extends State<RecipeCard> {
             ),
           ),
           Container(
-            //bilden
             width: 120,
             height: 120,
             decoration: new BoxDecoration(
@@ -53,7 +51,6 @@ class _RecipeCardState extends State<RecipeCard> {
                     fit: BoxFit.fill, image: NetworkImage(widget.recipe.imgURL))),
           ),
           Positioned(
-            //positionen på texten
             top: 30,
             left: 150,
             child: Container(
@@ -68,7 +65,6 @@ class _RecipeCardState extends State<RecipeCard> {
             ),
           ),
           Positioned(
-            //stjärnorna hårdkodade
             top: 75,
             left: 150,
             child: Row(

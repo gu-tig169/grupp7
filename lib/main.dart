@@ -5,7 +5,6 @@ import 'models/model.dart';
 
 void main() {
   var state = MyState();
-  //state.randomRecipes();
 
   runApp(
     ChangeNotifierProvider(

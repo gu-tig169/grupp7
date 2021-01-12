@@ -78,18 +78,15 @@ class MyState extends ChangeNotifier {
     final favoriteRecipe = _favoriteRecipes.firstWhere(
         (favoriteRecipe) => favoriteRecipe.id == recipe.id,
         orElse: () => null);
-    //Hitta det första receptet i _favoriteRecipes som matchar med id:t på recepten vi hämtar
     if (favoriteRecipe == null) {
       _favoriteRecipes.add(recipe);
-      //Om vi trycker på hjärtat och favoriteRecipe inte har ett id som matchar, lägg till favoriteRecipe i _favoriteRecipes
+      
     } else {
       _favoriteRecipes.remove(favoriteRecipe);
-      //Om vi trycker på hjärtat och id:t matchar, ta bort favoriteRecipe från _favoriteRecipes
     }
     notifyListeners();
   }
-
   bool isFavorite(Recipe recipe) {
     return _favoriteRecipes.any((favoriteRecipe) => recipe.id == favoriteRecipe.id);
-  } //Värdet på om favoriteRecipe är favoritmarkerat eller ej genom att kolla om id:t stämmer överens
+  }
 }

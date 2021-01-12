@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../services/api.dart';
 import '../utils/my_app_bar.dart';
-import '../../lists/search_list.dart';
 import 'search_list_view.dart';
-import '../../lists/favorite_list.dart';
-import 'home_view.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/model.dart';
-
-//Innehåller två klasser atm, Search och Filter. Dela på dem till separata filer?
 
 class Search extends StatefulWidget {
   final Recipe recipe;
@@ -25,11 +18,16 @@ class _SearchState extends State<Search> {
   bool _validate = false;
   TextEditingController inputController = TextEditingController();
 
-  _SearchState(item) {
-    this.title = item.title;
+  _SearchState(recipe) {
+    this.title = recipe.title;
     inputController.addListener(() {
       setState(() {
         title = inputController.text;
+        if (inputController.text.isEmpty) {
+          _validate = true;
+        } else if (inputController.text.isNotEmpty) {
+          _validate = false;
+        }
       });
     });
   }
@@ -56,11 +54,10 @@ class _SearchState extends State<Search> {
           children: [
             Container(height: 5),
             _searchInputField(),
-            Container(height: 10),
-            //_filterButton(),
+            Container(height: 15),
             if (_isPressed) _showFilters(),
             Container(height: 10),
-            _searchButton(context),
+            _searchButton(),
           ],
         ),
       ),
@@ -95,6 +92,10 @@ class _SearchState extends State<Search> {
           hintText: 'Search recipes...',
           hintStyle: TextStyle(fontStyle: FontStyle.italic),
           errorText: _validate ? 'Enter search request' : null,
+          suffixIcon: IconButton(
+            onPressed: () => inputController.clear(),
+            icon: Icon(Icons.clear),
+          ),
         ),
       ),
     );
@@ -120,17 +121,17 @@ class _SearchState extends State<Search> {
             spacing: 5,
             runSpacing: 3,
             children: [
-              Filter(chipName: 'Main course', type: 'main course'),
-              Filter(chipName: 'Side dish', type: 'side dish'),
-              Filter(chipName: 'Dessert', type: 'dessert'),
-              Filter(chipName: 'Appetizer', type: 'appetizer'),
-              Filter(chipName: 'Salad', type: 'salad'),
-              Filter(chipName: 'Bread', type: 'bread'),
-              Filter(chipName: 'Breakfast', type: 'breakfast'),
-              Filter(chipName: 'Soup', type: 'soup'),
-              Filter(chipName: 'Sauce', type: 'sauce'),
-              Filter(chipName: 'Fingerfood', type: 'fingerfood'),
-              Filter(chipName: 'Snack', type: 'snack'),
+              Filter(filterName: 'Main course'),
+              Filter(filterName: 'Side dish'),
+              Filter(filterName: 'Dessert'),
+              Filter(filterName: 'Appetizer'),
+              Filter(filterName: 'Salad'),
+              Filter(filterName: 'Bread'),
+              Filter(filterName: 'Breakfast'),
+              Filter(filterName: 'Soup'),
+              Filter(filterName: 'Sauce'),
+              Filter(filterName: 'Fingerfood'),
+              Filter(filterName: 'Snack'),
             ],
           ),
         ],
@@ -138,23 +139,20 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _searchButton(context) {
+  Widget _searchButton() {
     return Container(
       width: 380,
       child: RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         onPressed: () {
           setState(() {
-            if (inputController.text.isEmpty) {
-              _validate = true;
-            } else if (inputController.text.isNotEmpty) {
+            if (inputController.text.isNotEmpty) {
               Provider.of<MyState>(context, listen: false)
                   .searchRecipes(inputController.text);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SearchListView()));
             }
           });
-          //Fixa så errortexten försvinner om man börjar skriva!
         },
         color: Color(0xFF6C804B),
         child: Text('Search', style: TextStyle(color: Colors.white)),
@@ -164,10 +162,9 @@ class _SearchState extends State<Search> {
 }
 
 class Filter extends StatefulWidget {
-  final String chipName;
-  final String type;
+  final String filterName;
 
-  Filter({Key key, this.chipName, this.type}) : super(key: key);
+  Filter({Key key, this.filterName}) : super(key: key);
 
   @override
   _FilterState createState() => _FilterState();
@@ -179,7 +176,7 @@ class _FilterState extends State<Filter> {
   @override
   Widget build(BuildContext context) {
     return FilterChip(
-      label: Text(widget.chipName),
+      label: Text(widget.filterName),
       selected: _isSelected,
       onSelected: (isSelected) {
         setState(() {
@@ -191,4 +188,4 @@ class _FilterState extends State<Filter> {
       selectedColor: Color(0xFFE8E0A1),
     );
   }
-} //Jag antar att dessa två klasser kommer att slås ihop eller om jag gör två filer men låter dem ligga i samma så länge
+}

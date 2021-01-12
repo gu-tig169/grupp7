@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../utils/my_app_bar.dart';
-
 import '../../lists/search_list.dart';
-
 import '../../models/model.dart';
 
 class SearchListView extends StatelessWidget {
