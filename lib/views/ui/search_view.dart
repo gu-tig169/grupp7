@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../services/api.dart';
 import '../utils/my_app_bar.dart';
-import '../../lists/search_list.dart';
 import 'search_list_view.dart';
-import '../../lists/favorite_list.dart';
-import 'home_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/model.dart';
